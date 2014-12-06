@@ -1,6 +1,6 @@
 <?php
 
-namespace NgakakSeru\Controller\Dashboard;
+namespace NgakakSeru\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,8 +13,9 @@ class Dashboard
     public function uploadPicture(Request $request, Application $app)
     {
         // Render a template
-        $data['error'] = $this->errorMessage;
-        return new Response($app['view']->render('uploadindex', $data));
+        //$data['error'] = $this->errorMessage;
+        $data = array();
+        return new Response($app['view']->render('formupload', $data));
     }
     
     public function uploadPicture_do(Request $request, Application $app)
@@ -28,9 +29,9 @@ class Dashboard
             $upload = true;
             if($upload){
                 $insert = array(
-                    'id_user' = $_SESSION['id_user'],
-                    'judul' = $_POST['judul'],
-                    'namafile' = $_POST['namafile']
+                    'id_user' => $_SESSION['id_user'],
+                    'judul' => $_POST['judul'],
+                    'namafile' => $_POST['namafile']
                 );
                 $data['database']->insertTable('tbl_post',$insert);
                 $app['helper']->redirect(base_url().'dashboard/history');
@@ -41,8 +42,9 @@ class Dashboard
     
     public function History(Request $request, Application $app)
     {
-        $app['database']->getQuery("select * from tbl_post where id_user = '".$_SESSION['id_user']."' order by id DESC");
-        $data = $app['database']->result();
+        //$app['database']->getQuery("select * from tbl_post where id_user = '".$_SESSION['id_user']."' order by id DESC");
+        //$data = $app['database']->result();
+        $data = array();
         return new Response($app['view']->render('history', $data));
     }
 }
