@@ -10,57 +10,32 @@
         <!-- start: Row -->
         <div class="row">
             <div class="span8 main-container">
+                <?php foreach($data as $val):?>
                 <div class="content-container">
                     <div class="post-container">
-                        <h2>Judul Konten</h2><br>
+                        <h2><?=$val['judul']?></h2><br>
                         <div class="img-container">
-                            <img src="<?= $detail['baseUrl']; ?>/img/default-image.png">
+                            <?php 
+                            if(empty($val['image'])){
+                                $gambar = $detail['baseUrl'].'/img/default-image.png';
+                            } else {
+                                $gambar = $detail['baseUrl'].'/asset/post_image/'.$val['image'];
+                            }
+                            ?>
+                            <img src="<?=$gambar?>">
                         </div>
                     </div>
                     <div class="post-tool">
                         <ul class="social-bookmarks ">
-                            <li class="facebook" title="Share"><a href="#">facebook</a></li>
-                            <li class="twitter" title="Tweet"><a href="#">twitter</a></li>
+                            <li class="facebook" title="Share"><a href="javascript:fbshareCurrentPage(<?=$val['post_id']?>)" target="_blank">facebook</a></li>
+                            <li class="twitter" title="Tweet"><a href="http://twitter.com/share?url=<?=$detail['baseUrl'].$val['post_id']?>" target="_blank">twitter</a></li>
                         </ul>
                         <a href="" class="like" title="Suka"><i class="ico-thumbs-up  ico-white circle-color-full small-color"></i></a>
                         <a href="" class="like" title="Tidak Suka"><i class="ico-thumbs-down  ico-white circle-color-full small-color"></i></a>
                         <a href="" class="like" title="Komentar"><i class="ico-chat ico-white circle-color-full small-color"></i></a>
                     </div>
                 </div>
-                <div class="content-container">
-                    <div class="post-container">
-                        <h2>Judul Konten</h2><br>
-                        <div class="img-container">
-                            <img src="<?= $detail['baseUrl']; ?>/img/default-image.png">
-                        </div>
-                    </div>
-                    <div class="post-tool">
-                        <ul class="social-bookmarks ">
-                            <li class="facebook" title="Share"><a href="#">facebook</a></li>
-                            <li class="twitter" title="Tweet"><a href="#">twitter</a></li>
-                        </ul>
-                        <a href="" class="like" title="Suka"><i class="ico-thumbs-up  ico-white circle-color-full small-color"></i></a>
-                        <a href="" class="like" title="Tidak Suka"><i class="ico-thumbs-down  ico-white circle-color-full small-color"></i></a>
-                        <a href="" class="like" title="Komentar"><i class="ico-chat ico-white circle-color-full small-color"></i></a>
-                    </div>
-                </div>
-                <div class="content-container">
-                    <div class="post-container">
-                        <h2>Judul Konten</h2><br>
-                        <div class="img-container">
-                            <img src="<?= $detail['baseUrl']; ?>/img/default-image.png">
-                        </div>
-                    </div>
-                    <div class="post-tool">
-                        <ul class="social-bookmarks ">
-                            <li class="facebook" title="Share"><a href="#">facebook</a></li>
-                            <li class="twitter" title="Tweet"><a href="#">twitter</a></li>
-                        </ul>
-                        <a href="" class="like" title="Suka"><i class="ico-thumbs-up  ico-white circle-color-full small-color"></i></a>
-                        <a href="" class="like" title="Tidak Suka"><i class="ico-thumbs-down  ico-white circle-color-full small-color"></i></a>
-                        <a href="" class="like" title="Komentar"><i class="ico-chat ico-white circle-color-full small-color"></i></a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
             <div class="span4">
                 <div class="img-container-ads">
@@ -79,12 +54,17 @@
                 <h2>Get The App</h2>
                 <button class="btn btn-default">DOWNLOAD</button>
                 <br><br>
+
                 <div id="footer">
                     <a href="">Pasang Iklan</a> · <a href="">Kontak</a> · <a href="">Privasi</a> · <a href="">Peraturan</a>
                     <br>
                     www.NgakakSeru.com © 2014</a>
                 </div>
             </div>
+            <script language="javascript">
+                function fbshareCurrentPage(id_post)
+                {window.open("https://www.facebook.com/sharer/sharer.php?u="+escape(window.location.href)+id_post+"&t=" +document.title, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false; }
+            </script>
 
         </div>
         <!-- end: Row -->
