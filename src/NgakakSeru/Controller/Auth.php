@@ -15,7 +15,7 @@ class Auth
     {
         // Render a template
         $data['base_url'] = $request->getBasePath();        
-        if (isset($_SESSION['user'])) {
+        // if (isset($_SESSION['user'])) {
           //   // return new Response($app['view']->render('auth',$data));
           // }else{
           //   return new Response($app['view']->render('auth',$data));
