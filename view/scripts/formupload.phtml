@@ -294,17 +294,17 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" action="<?=$base_url?>/index.php/dashboard/uploadpicturedo" method="POST" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label>Judul</label>
-                                            <input class="form-control">
+                                            <input class="form-control" name="judul">
                                             <p class="help-block">Masukkan judul gambar.</p>
                                         </div>
                                         
                                         
                                         <div class="form-group">
                                             <label>Upload Gambar</label>
-                                            <input type="file">
+                                            <input type="file" name="gambar">
                                         </div>
                                         <button type="submit" class="btn btn-default">Upload</button>
                                     </form>

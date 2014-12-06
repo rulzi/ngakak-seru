@@ -28,7 +28,7 @@ $app->get('/auth/logout', 'NgakakSeru\\Controller\\Auth::logout');
 $app->get('/auth', 'NgakakSeru\\Controller\\Auth::index');
 $app->get('/dashboard/uploadpicture', 'NgakakSeru\\Controller\\Dashboard::uploadPicture');
 $app->get('/dashboard/history', 'NgakakSeru\\Controller\\Dashboard::History');
-$app->get('/dashboard/uploadpicturedo', 'NgakakSeru\\Controller\\Dashboard::uploadPicture_do');
+$app->post('/dashboard/uploadpicturedo', 'NgakakSeru\\Controller\\Dashboard::uploadPicture_do');
 
 $app->run();
 
