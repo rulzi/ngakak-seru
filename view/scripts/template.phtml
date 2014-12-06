@@ -20,15 +20,15 @@
         <!-- end: Facebook Open Graph -->
 
         <!-- start: CSS -->
-        <link href="<?= $baseUrl; ?>/css/bootstrap.css" rel="stylesheet">
-        <link href="<?= $baseUrl; ?>/css/bootstrap-responsive.css" rel="stylesheet">
-        <link href="<?= $baseUrl; ?>/css/style.css" rel="stylesheet">
-        <link href="<?= $baseUrl; ?>/css/custom.css" rel="stylesheet">
+        <link href="<?= get_site_url(); ?>main/css/bootstrap.css" rel="stylesheet">
+        <link href="<?= get_site_url(); ?>main/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="<?= get_site_url(); ?>main/css/style.css" rel="stylesheet">
+        <link href="<?= get_site_url(); ?>main/css/custom.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Boogaloo">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Economica:700,400italic">
-        <link href="<?= $baseUrl; ?>/img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+        <link href="<?= get_site_url(); ?>main/img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
         <!-- end: CSS -->
 
         <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -46,7 +46,7 @@
                     <!--start: Logo -->
                     <div class="logo span3">
 
-                        <a class="brand" href="#"><img src="<?= $baseUrl; ?>/img/logo.jpg"></a>
+                        <a class="brand" href="<?= get_site_url(); ?>"><img src="<?= $baseUrl; ?>/img/logo.jpg" style="height:35px;max-width:none;"></a>
 
                     </div>
                     <!--end: Logo -->
@@ -64,24 +64,6 @@
                                     </a>
                                     <div class="nav-collapse collapse">
                                         <ul class="nav">
-                                            <li><a href="index.html">TOP</a></li>
-                                            <li><a href="about.html">Trending</a></li>
-                                            <li><a href="services.html">Terbaru</a></li>
-                                            <li><a href="pricing.html">TV</a></li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kategori <b class="caret"></b></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Cewe</a></li>
-                                                    <li><a href="#">NSWF</a></li>
-                                                    <li><a href="#">GIF</a></li>
-                                                    <li><a href="#">Meme</a></li>
-                                                    <li><a href="#">Imut</a></li>
-                                                    <li><a href="#">Cosplay</a></li>
-                                                    <li><a href="#">Timely</a></li>
-                                                    <li><a href="#">Komik</a></li>
-                                                    <li><a href="#">Makanan</a></li>
-                                                </ul>
-                                            </li>
                                             <li><a href="auth">Login / Register</a></li>
                                         </ul>
                                     </div>
@@ -100,13 +82,13 @@
 
         <!-- start: Java Script -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="<?= $baseUrl; ?>/js/jquery-1.8.2.js"></script>
-        <script src="<?= $baseUrl; ?>/js/bootstrap.js"></script>
-        <script src="<?= $baseUrl; ?>/js/flexslider.js"></script>
-        <script src="<?= $baseUrl; ?>/main/js/carousel.js"></script>
-        <script src="<?= $baseUrl; ?>/main/js/jquery.cslider.js"></script>
-        <script src="<?= $baseUrl; ?>/main/js/slider.js"></script>
-        <script def src="<?= $baseUrl; ?>/main/js/custom.js"></script>
+        <script src="<?= get_site_url(); ?>main/js/jquery-1.8.2.js"></script>
+        <script src="<?= get_site_url(); ?>main/js/bootstrap.js"></script>
+        <script src="<?= get_site_url(); ?>main/js/flexslider.js"></script>
+        <script src="<?= get_site_url(); ?>main/js/carousel.js"></script>
+        <script src="<?= get_site_url(); ?>main/js/jquery.cslider.js"></script>
+        <script src="<?= get_site_url(); ?>main/js/slider.js"></script>
+        <script def src="<?= get_site_url(); ?>main/js/custom.js"></script>
         <!-- end: Java Script -->
 
     </body>
