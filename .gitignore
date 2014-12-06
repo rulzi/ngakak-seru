@@ -1,4 +1,4 @@
 vendor
 composer.lock
-src/NgakakSeru/Database/Connection.php
 phinx.yml
+config/dbconfig.php

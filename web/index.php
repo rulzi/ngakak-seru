@@ -4,8 +4,9 @@ session_start();
 require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
+include __DIR__.'/../config/dbconfig.php';
 $app['view'] = new League\Plates\Engine(__DIR__ . '/../view/scripts', 'phtml');
-$app['database'] = NgakakSeru\Database\Connection::getConnection();
+$app['database'] = $dbconfig->getConnection();
 
 // Enable PHP Error level
 error_reporting(E_ALL);
@@ -25,12 +26,13 @@ $app->get('/', function () use ($app) {
 
 $app->get('/about', 'NgakakSeru\\Controller\\About::dispatch');
 $app->get('/contact', 'NgakakSeru\\Controller\\Contact::dispatch');
-$app->get('/auth/register', 'NgakakSeru\\Controller\\Auth::register');
-$app->get('/auth/login', 'NgakakSeru\\Controller\\Auth::login');
+$app->post('/auth/register', 'NgakakSeru\\Controller\\Auth::register');
+$app->post('/auth/login', 'NgakakSeru\\Controller\\Auth::login');
 $app->get('/auth', 'NgakakSeru\\Controller\\Auth::index');
 $app->get('/dashboard/uploadpicture', 'NgakakSeru\\Controller\\Dashboard::uploadPicture');
 $app->get('/dashboard/history', 'NgakakSeru\\Controller\\Dashboard::History');
 $app->get('/dashboard/uploadpicturedo', 'NgakakSeru\\Controller\\Dashboard::uploadPicture_do');
+
 
 $app->run();
 
