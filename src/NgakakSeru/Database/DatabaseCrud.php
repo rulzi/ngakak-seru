@@ -93,7 +93,7 @@ class DatabaseCrud
         if($limit != null)
             $command .= ' LIMIT '.$limit;
                
-        $query = parent::prepare($command);
+        $query = $pdo->prepare($command);
         $query->execute();
        
         $posts = array();

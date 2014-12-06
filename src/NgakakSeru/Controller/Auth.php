@@ -5,6 +5,7 @@ namespace NgakakSeru\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Silex\Application;
+use NgakakSeru\Database as Database;
 
 class Auth
 {
@@ -14,55 +15,77 @@ class Auth
     {
         // Render a template
         $data['base_url'] = $request->getBasePath();        
+        if (isset($_SESSION['user'])) {
+          //   // return new Response($app['view']->render('auth',$data));
+          // }else{
+          //   return new Response($app['view']->render('auth',$data));
+          // }
         return new Response($app['view']->render('auth',$data));
     }
     
     public function register(Request $request, Application $app)
     {
-        if(empty($_POST['username'])){
+        $username = $request->get('username');
+        if(empty($username)){
             $this->errorMessage .= 'Username harus diisi<br>';
         }
-        if(empty($_POST['email'])){
+        $email = $request->get('email');
+        if(empty($email)){
             $this->errorMessage .= 'Email harus diisi<br>';
         }
-        if(empty($_POST['password'])){
+        $password = $request->get('password');
+        if(empty($password)){
             $this->errorMessage .= 'Password Harus diisi<br>';
         }
-        if(!empty($_POST['password']) && $_POST['password'] != $_POST['password_confirm']){
-            $this->errorMessage .= 'Pasword konfirmasi harus disi';
+        $password_confirm = $request->get('password_confirm');
+        if( $password != $password_confirm ){
+            $this->errorMessage .= 'Pasword konfirmasi harus sama';
         }
         
         if(!$this->errorMessage){
             $input = array(
-                'username' => $_POST['username'], 
-                'email' => $_POST['email'],
-                'password' => md5($_POST['password']),
+                'username' => $username, 
+                'email' => $email,
+                'password' => md5($password),
             );
+            $insertUser = new Database\DatabaseCrud;
+            $insertUser->insert($app['database'], 'users', $input);
+            
+            $data['base_url'] = $request->getBasePath(); 
+            if(isset($_SESSION['user'])) {
+                // Destroy the session
+                echo "login";
+            }
             return new Response($app['view']->render('auth',$data));
-            $insertUser = NgakakSeru\Database\DatabaseCrud::insert($app['database'], 'users', $input);
-            $app['helper']->redirect(base_url().'dashboard');
+            // $app['helper']->redirect(base_url().'dashboard');
         }
     }
     
     public function login(Request $request, Application $app)
     {
-        if(empty($_POST['username'])){
-            $this->errorMessage .= 'Username harus diisi<br>';
+        $username = $request->get('username');
+        $password = $request->get('password');
+
+        $LoginUser = new Database\LoginUser;
+        $cek_user = $LoginUser->login($app['database'], $username, $password);
+
+        if($cek_user){
+
+            echo "berhasil login";
+            // $app['helper']->redirect(base_url().'dashboard');
+            
+            //$app['helper']->redirect(base_url().'auth');
+        }else {
+            echo "gagal login";
         }
-        if(empty($_POST['password'])){
-            $this->errorMessage .= 'Password Harus diisi<br>';
-        }
-        if(!$this->errorMessage){
-            $app['database']->getQuery("select *, count(*) as jml from tbl_user where username = '".mysql_real_escape_string($_POST['username'])."' AND  password = '".mysql_real_escape_string(md5($_POST['password']))."'");
-            $data = $app['database']->result();
-            if($data->jml > 0){
-                $_SESSION['id_user'] = $data->id_user;
-                $_SESSION['email'] = $data->email;
-                $app['helper']->redirect(base_url().'dashboard');
-            }
-            $this->errorMessage .= 'Password Harus diisi<br>';
-            $app['helper']->redirect(base_url().'auth');
-        }
+    }
+
+    public function logout(Request $request, Application $app)
+    {
+        if (isset($_SESSION['user'])) {
+            // Destroy the session
+            session_destroy();
+          }
     }
 
 }
