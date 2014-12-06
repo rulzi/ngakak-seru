@@ -3,3 +3,5 @@ composer.lock
 phinx.yml
 var
 config/*.php
+cache.properties
+php-cs-fixer.phar
