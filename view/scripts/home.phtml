@@ -17,9 +17,9 @@
                         <div class="img-container">
                             <?php 
                             if(empty($val['image'])){
-                                $gambar = $detail['baseUrl'].'/img/default-image.png';
+                                $gambar = get_site_url() . '/img/default-image.png';
                             } else {
-                                $gambar = $detail['baseUrl'].'/asset/post_image/'.$val['image'];
+                                $gambar = get_site_url() . '/asset/post_image/'.$val['image'];
                             }
                             ?>
                             <img src="<?=$gambar?>">
