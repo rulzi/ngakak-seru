@@ -56,13 +56,12 @@ class Auth
             );
             $insertUser = new Database\DatabaseCrud;
             $insertUser->insert($app['database'], 'users', $input);
-            
-            $data['base_url'] = $request->getBasePath();
-            if (isset($_SESSION['user'])) {
-                echo "login";
-            }
 
+            $newURL = get_site_url()."auth";
+            // var_dump($newURL);
+            header('Location: '.$newURL);
             return new Response($app['view']->render('auth', $data));
+            // $app['helper']->redirect(base_url().'dashboard');
         }
     }
     
@@ -75,14 +74,13 @@ class Auth
         $cek_user = $LoginUser->login($app['database'], $username, $password);
 
         if ($cek_user) {
-
-            echo "berhasil login";
-            // $app['helper']->redirect(base_url().'dashboard');
-            
-            //$app['helper']->redirect(base_url().'auth');
+            $newURL = get_site_url()."dashboard/uploadpicture";
         } else {
-            echo "gagal login";
+            $newURL = get_site_url()."auth";
         }
+        // var_dump($newURL);
+        header('Location: '.$newURL);
+        return new Response($app['view']->render('auth', $data));
     }
 
     public function logout(Request $request, Application $app)
@@ -91,5 +89,10 @@ class Auth
             // Destroy the session
             session_destroy();
         }
+
+        $newURL = get_site_url()."auth";
+        // var_dump($newURL);
+        header('Location: '.$newURL);
+        return new Response($app['view']->render('auth', $data));
     }
 }

@@ -44,9 +44,9 @@ class DatabaseCrud
             $value .= ', ":'.$key.'":"'.$values.'"';
         }
         
-        $update .= substr(trim($set),1);
-        $json  = '{'.substr($value,1).'}';
-        $param = json_decode($json,true);
+        $update .= substr(trim($set), 1);
+        $json  = '{'.substr($value, 1).'}';
+        $param = json_decode($json, true);
          
         if ($where != null) {
             $update .= ' WHERE '.$where;
@@ -66,18 +66,18 @@ class DatabaseCrud
     {
         $command = 'DELETE FROM '.$tabel;
        
-        $list = Array();
+        $list = array();
         $parameter = null;
 
         foreach ($where as $key => $value) {
-          $list[]     = "$key = :$key";
-          $parameter .= ', ":'.$key.'":"'.$value.'"';
+            $list[]     = "$key = :$key";
+            $parameter .= ', ":'.$key.'":"'.$value.'"';
         }
 
-        $command .= ' WHERE '.implode(' AND ',$list);
+        $command .= ' WHERE '.implode(' AND ', $list);
    
-        $json = "{".substr($parameter,1)."}";
-        $param = json_decode($json,true);
+        $json = "{".substr($parameter, 1)."}";
+        $param = json_decode($json, true);
                        
         $query = $pdo->prepare($command);
         $query->execute($param);

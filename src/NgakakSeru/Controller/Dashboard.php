@@ -43,6 +43,9 @@ class Dashboard
             $cek_insert = $insertPost->insert($app['database'], $input);
 
             return var_dump($cek_insert);
+            $newURL = get_site_url()."dashboard/uploadpicture";
+            header('Location: '.$newURL);
+            return new Response($app['view']->render('auth', $data));
         }
     }
     
