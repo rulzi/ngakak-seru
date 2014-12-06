@@ -5,6 +5,7 @@ namespace NgakakSeru\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Silex\Application;
+use NgakakSeru\Database\PostContent;
 
 class Dashboard
 {
@@ -14,29 +15,34 @@ class Dashboard
     {
         // Render a template
         //$data['error'] = $this->errorMessage;
-        $data = array();
+        $data['base_url'] = $request->getBasePath();
         return new Response($app['view']->render('formupload', $data));
     }
     
     public function uploadPicture_do(Request $request, Application $app)
     {
-        if(empty($_POST['judul'])){
-            $this->errorMessage .= 'Judul harus diisi<br>';
-        }
+
+        $base_url = $request->getBasePath();
+        $lokasi_file    = $_FILES['gambar'] ['tmp_name'];
+        $nama_file      = uniqid("img-").$_FILES['gambar'] ['name'];
+
+        // var_dump($_FILES);
+        //Buat folder
         
-        if(!$this->errorMessage){
-            //PROSES UPLOAD DISINI
-            $upload = true;
-            if($upload){
-                $insert = array(
-                    'id_user' => $_SESSION['id_user'],
-                    'judul' => $_POST['judul'],
-                    'namafile' => $_POST['namafile']
-                );
-                $data['database']->insertTable('tbl_post',$insert);
-                $app['helper']->redirect(base_url().'dashboard/history');
-            }
-            $app['helper']->redirect(base_url().'dashboard/uploadpicture');
+        if(!empty($lokasi_file)){
+            move_uploaded_file($lokasi_file,__DIR__."/../../../web/asset/post_image/$nama_file");
+            
+            $judul = $request->get('judul');
+
+            $input = array(
+                'user_id' => $_SESSION['user']['user_id'], 
+                'judul' => $judul,
+                'image' => $nama_file
+            );
+            $insertPost = new PostContent;
+            $cek_insert = $insertPost->insert($app['database'], $input);
+
+            return var_dump($cek_insert);
         }
     }
     

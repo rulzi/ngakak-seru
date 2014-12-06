@@ -5,3 +5,4 @@ var
 config/*.php
 cache.properties
 php-cs-fixer.phar
+web/asset/post_image/*
