@@ -12,15 +12,9 @@ class CreateTableUsers extends AbstractMigration
      *
      * Uncomment this method if you would like to use it.
      *
-    public function change()
-    {
-    }
     */
-    
-    /**
-     * Migrate Up.
-     */
-    public function up()
+
+    public function change()
     {
         $users = $this->table('users', array('id' => 'user_id'));
         $users->addColumn('username', 'string', array('limit' => 20))
@@ -32,6 +26,15 @@ class CreateTableUsers extends AbstractMigration
               ->addColumn('updated', 'datetime', array('default' => null))
               ->addIndex(array('username', 'email'), array('unique' => true))
               ->save();
+    }
+
+    
+    /**
+     * Migrate Up.
+     */
+    public function up()
+    {
+        
     }
 
     /**
