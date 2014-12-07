@@ -9,8 +9,8 @@ use NgakakSeru\Database as Database;
 
 class Auth
 {
-    private $errorMessage='';
-    
+    private $errorMessage = '';
+
     public function index(Request $request, Application $app)
     {
         // Render a template
@@ -22,11 +22,11 @@ class Auth
           // }
         return new Response($app['view']->render('auth', $data));
     }
-    
+
     public function register(Request $request, Application $app)
     {
         $username = $request->get('username');
-        
+
         if (empty($username)) {
             $this->errorMessage .= 'Username harus diisi<br>';
         }
@@ -37,7 +37,7 @@ class Auth
             $this->errorMessage .= 'Email harus diisi<br>';
         }
         $password = $request->get('password');
-        
+
         if (empty($password)) {
             $this->errorMessage .= 'Password Harus diisi<br>';
         }
@@ -47,30 +47,31 @@ class Auth
         if ($password != $password_confirm) {
             $this->errorMessage .= 'Pasword konfirmasi harus sama';
         }
-        
+
         if (!$this->errorMessage) {
             $input = array(
                 'username' => $username,
                 'email' => $email,
                 'password' => md5($password),
             );
-            $insertUser = new Database\DatabaseCrud;
+            $insertUser = new Database\DatabaseCrud();
             $insertUser->insert($app['database'], 'users', $input);
 
             $newURL = get_site_url()."auth";
             // var_dump($newURL);
             header('Location: '.$newURL);
+
             return new Response($app['view']->render('auth', $data));
             // $app['helper']->redirect(base_url().'dashboard');
         }
     }
-    
+
     public function login(Request $request, Application $app)
     {
         $username = $request->get('username');
         $password = $request->get('password');
 
-        $LoginUser = new Database\LoginUser;
+        $LoginUser = new Database\LoginUser();
         $cek_user = $LoginUser->login($app['database'], $username, $password);
 
         if ($cek_user) {
@@ -80,6 +81,7 @@ class Auth
         }
         // var_dump($newURL);
         header('Location: '.$newURL);
+
         return new Response($app['view']->render('auth', $data));
     }
 
@@ -93,6 +95,7 @@ class Auth
         $newURL = get_site_url()."auth";
         // var_dump($newURL);
         header('Location: '.$newURL);
+
         return new Response($app['view']->render('auth', $data));
     }
 }
